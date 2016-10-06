@@ -1,22 +1,25 @@
 # Handlebars pagination helper
-###### Pagination helper for handlebars templates
+##### Pagination helper for handlebars templates
 
-### Usage
+## Usage
+##### Include JavaScript file:
+```html
+<script type="text/javascript" src="index.js"></script>
+```
+
+##### Register template helper:
 ```javascript
-// include module
-var pagination = require('handlebars-pagination-helper');
-// Register pagination helper
-Handlebars.registerHelper('pagination', pagination);
-// get template markup
+Handlebars.registerHelper('pagination', window.handlebarsPaginationHelper);
 var template = Handlebars.compile(document.querySelector('#pagination-template').innerHTML);
-// render template
 var rendered = template({
 	total: 50,
 	limit: 5,
 	current: 1
 });
+document.querySelector('#pagination-container').innerHTML = rendered;
 ```
 
+##### Create template:
 ```html
 <script id="pagination-template" type="text/x-handlebars-template">
 	<ul class="pagination">
