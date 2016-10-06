@@ -1,0 +1,24 @@
+{
+  "name": "handlebars-pagination-helper",
+  "version": "1.0.0",
+  "description": "Pagination helper for handlebars templates",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarinescuEvghenii/handlebars-pagination-helper.git"
+  },
+  "keywords": [
+    "handlebars",
+    "helper",
+    "pagination"
+  ],
+  "author": "Marinescu Evghenii",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MarinescuEvghenii/handlebars-pagination-helper/issues"
+  },
+  "homepage": "https://github.com/MarinescuEvghenii/handlebars-pagination-helper#readme"
+}
