@@ -45,3 +45,6 @@ var rendered = template({
 });
 document.querySelector('#pagination-container').innerHTML = rendered;
 ```
+
+## Preview
+![screenshot](https://raw.githubusercontent.com/MarinescuEvghenii/handlebars-pagination-helper/master/demo/preview.png)
