@@ -48,4 +48,3 @@ document.querySelector('#pagination-container').innerHTML = rendered;
 
 ## Preview
 JSFiddle: https://goo.gl/Ppf3En
-Simple html: https://goo.gl/nggK5w
