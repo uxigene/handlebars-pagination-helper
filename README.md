@@ -10,13 +10,6 @@
 ##### Register template helper:
 ```javascript
 Handlebars.registerHelper('pagination', window.handlebarsPaginationHelper);
-var template = Handlebars.compile(document.querySelector('#pagination-template').innerHTML);
-var rendered = template({
-	total: 50,
-	limit: 5,
-	current: 1
-});
-document.querySelector('#pagination-container').innerHTML = rendered;
 ```
 
 ##### Create template:
@@ -40,4 +33,15 @@ document.querySelector('#pagination-container').innerHTML = rendered;
 		{{/pagination}}
 	</ul>
 </script>
+```
+
+##### Render template:
+```javascript
+var template = Handlebars.compile(document.querySelector('#pagination-template').innerHTML);
+var rendered = template({
+	total: 50,
+	limit: 5,
+	current: 1
+});
+document.querySelector('#pagination-container').innerHTML = rendered;
 ```
