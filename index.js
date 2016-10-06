@@ -1,8 +1,8 @@
 module.exports = function(options) {
 	var type    = options.hash.type    || 'pages',
-		total   = options.hash.total   || 9999,
-		limit   = options.hash.limit   || 3,
-		current = options.hash.current || 1;
+			total   = options.hash.total   || 9999,
+			limit   = options.hash.limit   || 3,
+			current = options.hash.current || 1;
 
 	// normalize current value (min = 1; max = total)
 	current = current > 0 ? current : 1;

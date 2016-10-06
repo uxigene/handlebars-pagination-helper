@@ -1,6 +1,6 @@
 {
   "name": "handlebars-pagination-helper",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Pagination helper for handlebars templates",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "helper",
     "pagination"
   ],
-  "author": "Marinescu Evghenii",
+  "author": "Marinescu Evghenii <marinescu.evghenii@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MarinescuEvghenii/handlebars-pagination-helper/issues"

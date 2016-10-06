@@ -1,0 +1,22 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+
+# Tab indentation (no size specified)
+[Makefile]
+indent_style = tab
+
+# Indentation override for all JS
+[**.js]
+indent_style = tab
+indent_size = 2
+
+# Indentation override for all json
+[**.json}]
+indent_style = tab
+indent_size = 2
