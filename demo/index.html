@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Handlebars pagination helper</title>
+		<style media="screen">
+		.pagination {
+			position: relative;
+			font-size: 0;
+			text-align: center;
+			margin-top: 20px;
+		}
+			.pagination__page {
+				background-color: #9b59b6;
+				color: #fff;
+				text-decoration: none;
+				padding: 8px 12px;
+				margin: 0 2px;
+				border-radius: 5px;
+				font-family: 'Arial';
+				font-size: 12px;
+				display: inline-block;
+				cursor: pointer;
+			}
+				.pagination__page:hover {
+					background-color: #8e44ad;
+				}
+				.pagination__page--active {
+				  background-color: #8e44ad;
+				}
+				.pagination__page--disabled {
+				  background-color: #bdc3c7;
+				}
+				.pagination__page--first,
+				.pagination__page--last,
+				.pagination__page--next,
+				.pagination__page--prev {
+
+				}
+
+				.pagination__page--first.pagination__page--disabled,
+				.pagination__page--last.pagination__page--disabled,
+				.pagination__page--next.pagination__page--disabled,
+				.pagination__page--prev.pagination__page--disabled {
+					background-color: #bdc3c7;
+				}
+		</style>
+	</head>
+	<body>
+		<div id="pagination-container"></div>
+
+		<script id="pagination-template" type="text/x-handlebars-template">
+			<div class="pagination">
+				{{#pagination type='first' current=current}}
+					<a href="#page={{this.page}}" class="pagination__page pagination__page--first {{#if this.disabled}}pagination__page--disabled{{/if}}">First</a>
+				{{/pagination}}
+				{{#pagination type='prev' current=current}}
+					<a href="#page={{this.page}}" class="pagination__page pagination__page--prev {{#if this.disabled}}pagination__page--disabled{{/if}}">Prev</a>
+				{{/pagination}}
+				{{#pagination type='pages' current=current total=total limit=limit}}
+					<a href="#page={{this.page}}" class="pagination__page {{#if this.active}}pagination__page--active{{/if}}">{{this.page}}</a>
+				{{/pagination}}
+				{{#pagination type='next' current=current total=total}}
+					<a href="#page={{this.page}}" class="pagination__page pagination__page--next {{#if this.disabled}}pagination__page--disabled{{/if}}">Next</a>
+				{{/pagination}}
+				{{#pagination type='last' current=current total=total}}
+					<a href="#page={{this.page}}" class="pagination__page pagination__page--last {{#if this.disabled}}pagination__page--disabled{{/if}}">Last</a>
+				{{/pagination}}
+			</div>
+		</script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+		<script type="text/javascript" src="../index.js"></script>
+		<script type="text/javascript">
+			Handlebars.registerHelper('pagination', window.handlebarsPaginationHelper);
+
+			var template = Handlebars.compile(document.querySelector('#pagination-template').innerHTML);
+
+			var rendered = template({
+				total: 50,
+				limit: 5,
+				current: 1
+			});
+
+			document.querySelector('#pagination-container').innerHTML = rendered;
+		</script>
+	</body>
+</html>

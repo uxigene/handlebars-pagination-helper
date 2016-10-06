@@ -16,7 +16,12 @@ indent_style = tab
 indent_style = tab
 indent_size = 2
 
-# Indentation override for all json
+# Indentation override for all HTML
+[**.html]
+indent_style = tab
+indent_size = 4
+
+# Indentation override for all JSON
 [**.json}]
 indent_style = tab
 indent_size = 2
