@@ -47,5 +47,5 @@ document.querySelector('#pagination-container').innerHTML = rendered;
 ```
 
 ## Preview
-https://jsfiddle.net/muzikant/h2Lh20q9/
-![screenshot](https://raw.githubusercontent.com/MarinescuEvghenii/handlebars-pagination-helper/master/demo/preview.png)
+JSFiddle: https://goo.gl/Ppf3En
+Simple html: https://goo.gl/nggK5w
