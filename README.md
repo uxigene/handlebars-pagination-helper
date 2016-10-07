@@ -15,23 +15,21 @@ Handlebars.registerHelper('pagination', window.handlebarsPaginationHelper);
 ##### Create template:
 ```html
 <script id="pagination-template" type="text/x-handlebars-template">
-	<ul class="pagination">
-		{{#pagination type='first' current=current}}
-			<li class="pagination__page {{#if this.active}}pagination__page--active{{/if}}" data-page="{{this.page}}">First</li>
-		{{/pagination}}
-		{{#pagination type='prev' current=current}}
-			<li class="pagination__page {{#if this.disabled}}pagination__page--disabled{{/if}}" data-page="{{this.page}}">Prev</li>
-		{{/pagination}}
-		{{#pagination type='pages' current=current total=total limit=limit}}
-			<li class="pagination__page {{#if this.active}}pagination__page--active{{/if}}" data-page="{{this.page}}">{{this.page}}</li>
-		{{/pagination}}
-		{{#pagination type='next' current=current total=total}}
-			<li class="pagination__page {{#if this.disabled}}pagination__page--disabled{{/if}}" data-page="{{this.page}}">Next</li>
-		{{/pagination}}
-		{{#pagination type='last' current=current total=total}}
-			<li class="pagination__page {{#if this.active}}pagination__page--active{{/if}}" data-page="{{this.page}}">Last</li>
-		{{/pagination}}
-	</ul>
+	<script id="pagination-template" type="text/x-handlebars-template">
+		<div class="pagination">
+			{{#pagination order='first,prev,pages,next,last' current=current total=total limit=limit}}
+				<a href="#page={{this.page}}" class="pagination__page
+					{{#if this.active}}pagination__page--active{{/if}}
+					{{#if this.disabled}}pagination__page--disabled{{/if}}">
+					{{#if this.first}}First page{{/if}}
+					{{#if this.last}}Last{{/if}}
+					{{#if this.next}}Next{{/if}}
+					{{#if this.prev}}Prev{{/if}}
+					{{#if this.pages}}{{this.page}}{{/if}}
+				</a>
+			{{/pagination}}
+		</div>
+	</script>
 </script>
 ```
 
