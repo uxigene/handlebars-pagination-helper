@@ -5,89 +5,124 @@
 */
 
 (function (window, document) {
-	var handlebarsPaginationHelper = function(options) {
-		var type    = options.hash.type    || 'pages',
-				total   = options.hash.total   || 9999,
-				limit   = options.hash.limit   || 3,
-				current = options.hash.current || 1;
 
-		// normalize current value (min = 1; max = total)
-		current = current > 0 ? current : 1;
-		current = current > total ? total : current;
+	function Module() {};
 
-		// normalize limit value (min = 3; max = total)
-		limit = limit > 3 ? limit : 3;
-		limit = limit < total ? limit : total;
+	Module.prototype.render = function(options) {
+		this.options = options;
 
-		var result   = '',
-			disabled = false,
-			active   = false,
-			page     = 1;
+		this.total   = options.hash.total   || 9999;
+		this.limit   = options.hash.limit   || 3;
+		this.current = options.hash.current || 1;
 
-		switch (type) {
-			case 'first':
-				// set first page value
-				page = 1;
-				// check if page is disabled
-				disabled = page === current;
-				result = options.fn({page: page, disabled: disabled});
-				break;
+		var order = options.hash.order || 'first,prev,pages,next,last';
+		order = order.split(',');
 
-			case 'last':
-				// set last page value
-				page = total;
-				// check if page is disabled
-				disabled = page === current;
-				result = options.fn({page: page, disabled: disabled});
-				break;
+		var rendered = '';
+		for (var i = 0; i < order.length; i++) {
+			switch (order[i]) {
+				case 'pages':
+					rendered += this.pages();
+					break;
+				case 'first':
+					rendered += this.first();
+					break;
+				case 'next':
+					rendered += this.next();
+					break;
+				case 'prev':
+					rendered += this.prev();
+					break;
+				case 'last':
+					rendered += this.last();
+					break;
+			}
+		}
 
-			case 'next':
-				// check if next button is disabled
-				disabled = current === total;
-				// set next button page value
-				page = disabled ? current : current + 1;
-				result = options.fn({page: page, disabled: disabled});
-				break;
+		return this.clearMarkup(rendered);
+	};
 
-			case 'prev':
-				// check if previous button is disabled
-				disabled = current === 1;
-				// set previous button page value
-				page = disabled ? current : current - 1;
-				result = options.fn({page: page, disabled: disabled});
-				break;
+	Module.prototype.clearMarkup = function (markup) {
+		return markup
+			.replace(/\n/g, '')
+			.replace(/  +/g, ' ')
+			.replace(/\t+/g, ' ');
+	};
 
-			case 'pages':
-				// find how many pages can be before current
-				var before = Math.ceil(limit / 2);
-				// calculate offset
-				var offset = 0;
-				offset = current > before ? current - before : offset;
-				offset = current + before > total ? total - limit : offset;
-				// create pages
-				for (var i = 1; i <= limit; i++) {
-					page = i + offset;
-					active = page === current;
-					result += options.fn({
-						page: page,
-						active: active
-					});
-				}
-				break;
+	Module.prototype.first = function() {
+		return this.options.fn({
+			first			: true,
+			page			: 1,
+			disabled	: this.current === 1
+		});
+	};
+
+	Module.prototype.last = function() {
+		return this.options.fn({
+			last			: true,
+			page			: this.total,
+			disabled	: this.current === this.total
+		});
+	};
+
+	Module.prototype.next = function() {
+		var disabled = this.current === this.total;
+		var page = disabled ? this.current : this.current + 1;
+		return this.options.fn({
+			next			: true,
+			page			: page,
+			disabled	: disabled
+		});
+	};
+
+	Module.prototype.prev = function() {
+		var disabled = this.current === 1;
+		var page = disabled ? this.current : this.current - 1;
+		return this.options.fn({
+			prev			: true,
+			page			: page,
+			disabled	: disabled
+		});
+	};
+
+	Module.prototype.pages = function() {
+		// find how many pages can be before current
+		var before = Math.ceil(this.limit / 2);
+
+		// calculate offset
+		var offset = 0;
+		offset = this.options.current > before ? this.current - before : offset;
+		offset = this.options.current + before > this.total ? this.total - this.limit : offset;
+
+		// create pages
+		var result = '';
+		for (var i = 1; i <= this.limit; i++) {
+			page = i + offset;
+			active = page === this.current;
+			result += this.options.fn({
+				pages		: true,
+				page		: page,
+				active	: active
+			});
 		}
 		return result;
 	};
 
+	var helper = function(options) {
+		var module = new Module();
+		return module.render(options);
+	};
+
 	// define for Node module pattern loaders, including Browserify
 	if (typeof module === 'object' && typeof module.exports === 'object') {
-		module.exports = handlebarsPaginationHelper;
+		module.exports = helper;
 	}
 	// define as an AMD module
 	else if (typeof define === 'function' && define.amd) {
-		define(handlebarsPaginationHelper);
+		define(helper);
 	}
 	// define as a global variable
 	if (typeof window !== 'undefined') {
-		window.handlebarsPaginationHelper = handlebarsPaginationHelper;
+		window.handlebarsPaginationHelper = helper
 	}
 }(window, document));
